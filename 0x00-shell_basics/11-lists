@@ -1,2 +1,9 @@
 #!/bin/bash
-ls -la . ../ /boot
+{
+  ls -la .
+  cd ..
+  ls -la
+} | {
+  cd /boot
+  ls -la
+}
