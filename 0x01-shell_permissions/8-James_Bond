@@ -1,2 +1,2 @@
 #!/bin/bash
-chmod go=rw hello
+chmod ugo=rwx hello
