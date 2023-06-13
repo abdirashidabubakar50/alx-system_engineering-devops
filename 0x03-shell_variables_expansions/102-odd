@@ -1,2 +1,2 @@
 #!/bin/bash
-grep -n '' "${1:-/dev/stdin}" | grep -E '^[[:digit:]]*[02468]:' | cut -d':' -f2 |nl -ba -nln
+grep -n '' "${1:-/dev/stdin}" | grep -E '^[[:digit:]]*[02468]:' | cut -d':' -f2 | nl -ba -nlntail -n 1 "${1:-/dev/stdin}"
