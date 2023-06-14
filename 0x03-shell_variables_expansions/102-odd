@@ -1,2 +1,2 @@
 #!/bin/bash
-grep -E '^[[:digit:]]*[02468]:' | cut -d':' -f2-
+grep -n '' "${1:-/dev/stdin}" | grep -E '^[[:digit:]]*[02468]:' | cut -d':' -f2- | grep -v ':$'
