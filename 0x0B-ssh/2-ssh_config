@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# client config file
+ssh ubuntu@34.207.156.46 mkdir -p .ssh/school
