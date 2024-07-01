@@ -1,3 +1,8 @@
 #!/usr/bin/env bash
 # client config file
-ssh ubuntu@34.207.156.46 mkdir -p .ssh/school
+Host *
+    HashKnownHost yes
+    User ubuntu
+    IdentifyFile ~/.ssh/school
+    PasswordAuthentication no
+
