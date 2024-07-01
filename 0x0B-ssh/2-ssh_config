@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # client config file
 Host *
-    HashKnownHost yes
+    HashKnownHosts yes
     User ubuntu
     IdentifyFile ~/.ssh/school
     PasswordAuthentication no
