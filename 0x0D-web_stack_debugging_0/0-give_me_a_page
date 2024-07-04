@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# Fix my server with these magic lines
+docker exec -it 815b87bfffbb /bin/bash
+service apache2 restart
+cat /var/www/html/index.html
