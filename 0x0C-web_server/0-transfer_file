@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# transfer file from our client to a server
 
 # Check if the number of arguments is less than 4
 if [ "$#" -ne 4 ]; then
