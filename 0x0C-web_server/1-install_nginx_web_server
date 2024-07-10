@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+# generating and serving html pages
+
+# Update package list and install nginx
+sudo apt-get update -y
+sudo apt-get install nginx -y
+
+# Create a custom HTML file in the default web root
+echo "Hello World!" | sudo tee /var/www/html/index.html
+
+# Ensure nginx is enabled and running
+sudo systemctl enable nginx
+sudo systemctl start nginx
+
+# Restart nginx without using systemctl
+sudo service nginx restart
+
+# Print a message indicating completion
+echo "Nginx installed and configured successfully."
