@@ -6,7 +6,7 @@ import sys
 import urllib.request
 
 
-def get_employee_todo_progress(e_id):
+def get_employee_todo(e_id):
     """
     Fetch and display the TODO list progress for a given employee ID.
 
@@ -65,4 +65,4 @@ if __name__ == "__main__":
         print("Error: Employee ID must be an integer.")
         sys.exit(1)
 
-    get_employee_todo_progress(employee_id)
+    get_employee_todo(employee_id)
