@@ -4,8 +4,8 @@ returns information about his/her TODO list progress and exports data in
 JSON format."""
 import json
 import sys
-import urllib.request
 import urllib.error
+import urllib.request
 
 
 def get_employee_todo_json(e_id):
