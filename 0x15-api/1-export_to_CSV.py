@@ -17,7 +17,7 @@ def export_to_csv(employee_id):
     Returns:
         None
     """
-    data = get_employee_todo_progress(employee_id)
+    data = get_employee_todo(employee_id)
     if data is None:
         return
 
