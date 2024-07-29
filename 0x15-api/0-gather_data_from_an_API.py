@@ -1,9 +1,9 @@
 #!/usr/bin/python3
 """This is a python script that uses REST API for a given employee ID,
 returns information about his/her TODO list progress."""
-import urllib.request
 import json
 import sys
+import urllib.request
 
 
 def get_employee_todo_progress(e_id):
