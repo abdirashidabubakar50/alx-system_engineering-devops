@@ -5,8 +5,8 @@ CSV format."""
 import csv
 import json
 import sys
-import urllib.request
 import urllib.error
+import urllib.request
 
 
 def get_employee_todo_csv(e_id):
