@@ -3,36 +3,11 @@ E: Could not open lock file /var/lib/apt/lists/lock - open (13: Permission denie
 E: Unable to lock directory /var/lib/apt/lists/
 W: Problem unlinking the file /var/cache/apt/pkgcache.bin - RemoveCaches (13: Permission denied)
 W: Problem unlinking the file /var/cache/apt/srcpkgcache.bin - RemoveCaches (13: Permission denied)
-E: Could not open lock file /var/lib/dpkg/lock-frontend - open (13: Permission denied)
-E: Unable to acquire the dpkg frontend lock (/var/lib/dpkg/lock-frontend), are you root?
-sed: couldn't open temporary file /etc/nginx/sites-available/sedwjawxC: Permission denied
-./0-nginx_likes_port_80: line 11: /var/www/html/index.html: Permission denied
+./0-nginx_likes_port_80: line 26: /etc/nginx/sites-available/default: Permission denied
+./0-nginx_likes_port_80: line 54: /var/www/html/index.html: Permission denied
 Failed to restart nginx.service: Interactive authentication required.
 See system logs and 'systemctl status nginx.service' for details.
-ERROR: You need to be root to run this script
-tcp   LISTEN 0      511          0.0.0.0:80         0.0.0.0:*          
-tcp   LISTEN 0      4096         0.0.0.0:8080       0.0.0.0:*          
-tcp   LISTEN 0      511             [::]:80            [::]:*          
-tcp   LISTEN 0      4096            [::]:8080          [::]:*          
-● nginx.service - A high performance web server and a reverse proxy server
-     Loaded: loaded (/lib/systemd/system/nginx.service; enabled; vendor preset: enabled)
-     Active: active (running) since Tue 2024-07-30 00:19:24 EAT; 1h 7min ago
-       Docs: man:nginx(8)
-    Process: 77416 ExecStartPre=/usr/sbin/nginx -t -q -g daemon on; master_process on; (code=exited, status=0/SUCCESS)
-    Process: 77422 ExecStart=/usr/sbin/nginx -g daemon on; master_process on; (code=exited, status=0/SUCCESS)
-   Main PID: 77529 (nginx)
-      Tasks: 9 (limit: 9412)
-     Memory: 12.0M
-     CGroup: /system.slice/nginx.service
-             ├─77529 "nginx: master process /usr/sbin/nginx -g daemon on; master_process on;"
-             ├─77531 "nginx: worker process" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""
-             ├─77532 "nginx: worker process" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""
-             ├─77533 "nginx: worker process" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""
-             ├─77534 "nginx: worker process" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""
-             ├─77535 "nginx: worker process" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""
-             ├─77536 "nginx: worker process" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""
-             ├─77537 "nginx: worker process" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""
-             └─77538 "nginx: worker process" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""
-
-Jul 30 00:19:24 Rashid systemd[1]: Starting A high performance web server and a reverse proxy server...
-Jul 30 00:19:24 Rashid systemd[1]: Started A high performance web server and a reverse proxy server.
+tcp        0      0 0.0.0.0:80              0.0.0.0:*               LISTEN     
+tcp        0      0 0.0.0.0:8080            0.0.0.0:*               LISTEN     
+tcp6       0      0 :::80                   :::*                    LISTEN     
+tcp6       0      0 :::8080                 :::*                    LISTEN     

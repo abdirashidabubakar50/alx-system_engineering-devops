@@ -1,44 +1,60 @@
 #!/usr/bin/env bash
 # Automating fix
 
-# Update package list and install Nginx
+# Update package list
 apt-get update
-apt-get install -y nginx
 
-# Ensure Nginx listens on port 80 in the default configuration
-sed -i 's/# listen 80 default_server;/listen 80 default_server;/' /etc/nginx/sites-available/default
+# Install Nginx if not installed
+if ! dpkg -l | grep -q nginx; then
+    apt-get install -y nginx
+fi
 
-# Create default index.html content
-cat <<EOF > /var/www/html/index.html
-<!DOCTYPE html>
+# Update Nginx configuration
+CONFIG='/etc/nginx/sites-available/default'
+echo "server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+
+    root /var/www/html;
+    index index.html;
+
+    server_name _;
+
+    location / {
+        try_files \$uri \$uri/ =404;
+    }
+}" > $CONFIG
+
+# Create the root directory and add a default index.html
+mkdir -p /var/www/html
+echo "<!DOCTYPE html>
 <html>
 <head>
-    <title>Welcome to nginx!</title>
-    <style>
-        body {
-            width: 35em;
-            margin: 0 auto;
-            font-family: Tahoma, Verdana, Arial, sans-serif;
-        }
-    </style>
+<title>Welcome to nginx!</title>
+<style>
+    body {
+        width: 35em;
+        margin: 0 auto;
+        font-family: Tahoma, Verdana, Arial, sans-serif;
+    }
+</style>
 </head>
 <body>
-    <h1>Welcome to nginx!</h1>
-    <p>If you see this page, the nginx web server is successfully installed and working. Further configuration is required.</p>
-    <p>For online documentation and support please refer to <a href="http://nginx.org/">nginx.org</a>.<br/>Commercial support is available at <a href="http://nginx.com/">nginx.com</a>.</p>
-    <p><em>Thank you for using nginx.</em></p>
-</body>
-</html>
-EOF
+<h1>Welcome to nginx!</h1>
+<p>If you see this page, the nginx web server is successfully installed and
+working. Further configuration is required.</p>
 
-# Restart Nginx to apply changes
+<p>For online documentation and support please refer to
+<a href=\"http://nginx.org/\">nginx.org</a>.<br/>
+Commercial support is available at
+<a href=\"http://nginx.com/\">nginx.com</a>.</p>
+
+<p><em>Thank you for using nginx.</em></p>
+</body>
+</html>" > /var/www/html/index.html
+
+# Restart Nginx
 systemctl restart nginx
 
-# Allow port 80 through the firewall
-ufw allow 80/tcp
-
 # Check if Nginx is listening on port 80
-ss -tuln | grep ':80'
-
-# Display the Nginx service status
-systemctl status nginx
+netstat -tuln | grep :80
