@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+# script to configure Nginx witha custom HTTP header X-served-By
+
+
+HOSTNAME=$(hostname)
+
+#update teh Nginx configuration to include the custom header
+CONFIG="server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+
+    root /var/www/html;
+    index index.html index.nginx-debian.html;
+
+    server_name _;
+
+    location / {
+    add_header X-Served-By \"$HOSTNAME\";
+    }
+}"
+
+#Replace the default Nginx configuration with the updated configuration
+echo "$CONFIG" > /etc/nginx/sites-available/default
+
+# Restart Nginx to apply the changes
+systemctl restart nginx
