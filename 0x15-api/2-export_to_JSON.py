@@ -43,7 +43,8 @@ def get_employee_todo_json(e_id):
 
     # Get TODO list for the employee
     try:
-        with urllib.request.urlopen(f"{base_url}todos?userId={e_id}") as response:
+        todos_url = f"{base_url}todos?userId={e_id}"
+        with urllib.request.urlopen(todos_url) as response:
             todos_data = response.read()
             todos = json.loads(todos_data)
     except urllib.error.URLError as e:

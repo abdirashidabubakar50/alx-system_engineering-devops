@@ -6,7 +6,6 @@ import urllib.error
 import urllib.request
 
 
-
 def get_all_employees_todo_json():
     """
     Fetch and export the TODO list progress for all employees to JSON.
@@ -36,14 +35,15 @@ def get_all_employees_todo_json():
 
         # Get TODO list for the employee
         try:
-            with urllib.request.urlopen(f"{base_url}todos?userId={e_id}") as response:
+            todos_url = f"{base_url}todos?userId={e_id}"
+            with urllib.request.urlopen(todos_url) as response:
                 todos_data = response.read()
                 todos = json.loads(todos_data)
         except urllib.error.URLError as e:
-            print(f"Error: Unable to fetch data for employee {e_id}. {e.reason}")
+            print(f"Error: Unable to fetch data for employee {e_id}")
             continue
         except json.JSONDecodeError:
-            print(f"Error: Unable to parse TODO list data for employee {e_id}.")
+            print(f"Error: Unable to parse TODO data for employee {e_id}")
             continue
 
         tasks = [{"username": employee_name,

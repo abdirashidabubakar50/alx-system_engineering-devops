@@ -41,10 +41,10 @@ def get_employee_todo(e_id):
     # Calculate the number of completed and total tasks
     completed_tasks = [todo for todo in todos if todo.get('completed')]
     total_tasks = len(todos)
-    number_of_done_tasks = len(completed_tasks)
+    tasks_finished = len(completed_tasks)
 
     # Display the progress
-    print(f"Employee {employee_name} is done with tasks({number_of_done_tasks}/"
+    print(f"Employee {employee_name} is done with tasks({tasks_finished}/"
           f"{total_tasks}):")
     for task in completed_tasks:
         print(f"\t {task.get('title')}")
