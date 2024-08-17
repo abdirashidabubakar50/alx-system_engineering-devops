@@ -1,15 +1,19 @@
 # 0-strace_is_your_friend.pp
-# This manifest fixes the WordPress wp-settings.php file by replacing 'phpp' with 'php'
+# This Puppet manifest fixes the WordPress wp-settings.php file by replacing
+# 'phpp' with 'php' to correct any typos in the file.
 
 exec { 'fix-wordpress':
-  command => 'sed -i s/phpp/php/g /var/www/html/wordpress/wp-settings.php',
-  path    => ['/usr/bin', '/bin'], # Ensure the path to sed is included
-  onlyif  => 'grep -q phpp /var/www/html/wordpress/wp-settings.php', # Only run if 'phpp' is found
-  notify  => Exec['restart-apache'], # Notify to restart Apache if the change is made
+  command => 'sed -i "s/phpp/php/g" /var/www/html/wp-settings.php',
+  path    => '/usr/bin:/bin',
+  user    => 'root',
+  group   => 'root',
+  unless  => 'grep -q "phpp" /var/www/html/wp-settings.php',
+  require => File['/var/www/html/wp-settings.php'],
 }
 
-exec { 'restart-apache':
-  command     => '/usr/sbin/service apache2 restart',
-  path        => ['/usr/sbin', '/usr/bin'], # Ensure the path to service is included
-  refreshonly => true, # Only run if notified
+file { '/var/www/html/wp-settings.php':
+  ensure => file,
+  owner  => 'www-data',
+  group  => 'www-data',
+  mode   => '0644',
 }
