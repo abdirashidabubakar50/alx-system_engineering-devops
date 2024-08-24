@@ -1,48 +1,41 @@
-# Ensure file limits are set for all users
+# Ensure limits.conf is configured correctly
 file { '/etc/security/limits.conf':
   ensure  => file,
-  content => "/*\nsoft nofile 65536\nhard nofile 65536\n",
-  notify  => Exec['reload_limits'],
+  content => "
+*                soft    nofile           65536
+*                hard    nofile           65536
+",
+  notify  => Exec['apply_sysctl'], # Notify to reapply sysctl settings
 }
 
-# Ensure PAM limits are applied for interactive sessions
+# Ensure common-session PAM file is configured
 file { '/etc/pam.d/common-session':
   ensure  => file,
   content => "session required pam_limits.so\n",
-  notify  => Exec['reload_pam'],
 }
 
-# Ensure PAM limits are applied for non-interactive sessions
+# Ensure common-session-noninteractive PAM file is configured
 file { '/etc/pam.d/common-session-noninteractive':
   ensure  => file,
   content => "session required pam_limits.so\n",
-  notify  => Exec['reload_pam'],
 }
 
-# Set system-wide file descriptor limit
+# Ensure sysctl.conf is updated for file descriptor limits
 file { '/etc/sysctl.conf':
   ensure  => file,
   content => "fs.file-max = 65536\n",
-  notify  => Exec['apply_sysctl'],
+  notify  => Exec['apply_sysctl'], # Notify to reapply sysctl settings
 }
 
-# Apply system configuration changes
+# Apply sysctl settings
 exec { 'apply_sysctl':
   command     => '/sbin/sysctl -p',
-  path        => ['/sbin', '/bin'],
   refreshonly => true,
 }
 
-# Reload PAM settings to apply limits
+# Ensure limits are applied to PAM configuration
 exec { 'reload_pam':
-  command     => '/sbin/pam-auth-update --force',
-  path        => ['/sbin', '/bin'],
-  refreshonly => true,
-}
-
-# Reload limits configuration to apply changes
-exec { 'reload_limits':
-  command     => '/sbin/pam-auth-update --force',
-  path        => ['/sbin', '/bin'],
+  command     => '/usr/sbin/pam-auth-update --force', # Update PAM configuration
+  path        => ['/usr/sbin', '/usr/bin'],
   refreshonly => true,
 }
